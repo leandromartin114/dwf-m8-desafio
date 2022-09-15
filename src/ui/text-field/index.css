@@ -1,0 +1,39 @@
+.label{
+    display: grid;
+    justify-items: start ;
+}
+.input{
+    box-sizing: border-box;
+    width: 290px;
+    padding: 5px 2px;
+    border: 3px solid rgb(128, 38, 212);
+    border-radius: 8px;
+    font-size: 18px;
+    font-family: 'Odibee Sans', cursive;
+    font-weight: 400;
+    text-align: center;
+}
+input::placeholder{
+    color: #ede7f6;
+}
+.input:active{
+    background-color: #ede7f6;
+}
+.input:hover{
+    background-color: #ede7f6;
+}
+.area{
+    height: 100px;
+}
+@media (min-width: 969px){
+    .input{
+        max-width: 360px;
+        font-size: 26px;
+        border-width: 4px;
+        padding: 7px 3px;
+    }
+    .area{
+        height: 140px;
+    }
+}
+

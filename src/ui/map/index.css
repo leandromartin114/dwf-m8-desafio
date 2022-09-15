@@ -1,0 +1,11 @@
+.marker{
+    height: 20px;
+    width: 20px;
+}
+.map_container{
+    display: grid;
+    gap: 15px;
+    justify-items: center;
+    align-items: center;
+    margin: 0;
+}

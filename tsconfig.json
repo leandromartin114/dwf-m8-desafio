@@ -1,0 +1,13 @@
+{
+    "compilerOptions": {
+        "baseUrl": "./src",
+        "jsx": "react",
+        "target": "es5",
+        "outDir": "dist",
+        "esModuleInterop": true,
+        "moduleResolution": "Node",
+        "resolveJsonModule": true,
+        "typeRoots": ["./node_modules/@types"]
+    },
+    "include": ["src/**/*.*"]
+}

@@ -1,0 +1,52 @@
+.title{
+    margin: 0;
+    font-size: 28px;
+    font-weight: 700;
+    text-align: center;
+}
+.sub_title{
+    margin: 0;
+    font-size: 16px;
+    font-weight: 700;
+    text-align: center;
+}
+.link_text{
+    margin: 0;
+    font-size: 14px;
+    text-align: right;
+    font-weight: 400;
+    color: blue;
+    text-decoration: underline;
+    cursor: pointer;
+}
+.text{
+    margin: 0;
+    font-size: 16px;
+    font-weight: 400;
+    text-align: center;
+    width: 290px;
+}
+.special_text{
+    margin: 0;
+    font-size: 14px;
+    font-weight: 700;
+    text-align: center;
+}
+@media (min-width: 969px){
+    .title{
+        font-size: 34px;
+    }
+    .sub-title{
+        font-size: 18px;
+    }
+    .link-text{
+        font-size: 16px;
+    }
+    .text{
+        font-size: 18px;
+        width: 340px;
+    }
+    .special-text{
+        font-size: 16px;
+    }
+}
