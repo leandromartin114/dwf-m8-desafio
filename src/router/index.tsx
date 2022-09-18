@@ -19,6 +19,7 @@ export function AppRoutes() {
 				<Route path='home' element={<HomePage />} />
 				<Route path='signin' element={<SigninPage />} />
 				<Route path='pass' element={<PassPage />} />
+				<Route path='pass/:email' element={<PassPage />} />
 				<Route path='signup' element={<SignupPage />} />
 				<Route path='mydata' element={<MyDataPage />} />
 				<Route path='report' element={<ReportPage />} />

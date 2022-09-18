@@ -1,5 +1,19 @@
 .container{
-    display: flex;
+    padding: 20px 5px;
+    display: grid;
+    gap: 20px;
     align-items: center;
-    justify-content: center;
+    justify-items: center;
+}
+.text_container{
+    display: grid;
+    gap: 15px;
+    align-items: center;
+    justify-items: center;
+}
+.cards_container{
+    display: grid;
+    gap: 20px;
+    align-items: center;
+    justify-items: center;
 }

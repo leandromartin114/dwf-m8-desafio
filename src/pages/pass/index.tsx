@@ -1,5 +1,10 @@
 import React from "react";
+import { PassForm } from "components/form-pass";
 
 export function PassPage() {
-	return <div>PassPage</div>;
+	return (
+		<div>
+			<PassForm></PassForm>
+		</div>
+	);
 }

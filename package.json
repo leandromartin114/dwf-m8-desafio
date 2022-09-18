@@ -35,6 +35,8 @@
 		"react-mapbox-gl": "^5.1.1",
 		"react-router-dom": "^6.3.0",
 		"recoil": "^0.7.5",
-		"styled-components": "^5.3.5"
+		"recoil-persist": "^4.2.0",
+		"styled-components": "^5.3.5",
+		"sweetalert2": "^11.4.33"
 	}
 }

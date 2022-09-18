@@ -1,36 +1,51 @@
-import React from "react";
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import styles from "./index.css";
 import logo from "assets/logo.png";
 import { BurgerMenu } from "components/burger-menu";
 import { SpecialText, LinkText } from "ui/text";
 import { Link } from "react-router-dom";
+import { useEmailValue, useTokenState, useTokenValeu } from "hooks";
 
 export function CustomHeader() {
+	const navigate = useNavigate();
+	const email = useEmailValue();
+	const [token, setToken] = useTokenState();
+	const tokenValue = useTokenValeu();
+	function handleSession() {
+		setToken("");
+		navigate("/");
+	}
+	function handleClick() {
+		navigate("/home");
+	}
 	return (
 		<header className={styles.header}>
-			<img src={logo} className={styles.logo} />
+			<img onClick={handleClick} src={logo} className={styles.logo} />
 			<BurgerMenu></BurgerMenu>
 			<ul className={styles.desktop_ul}>
 				<li className={styles.desktop_li}>
-					<Link to={"/mydata"} className={styles.link}>
+					<Link to={tokenValue ? "/mydata" : "/signin"} className={styles.link}>
 						Mis datos
 					</Link>
 				</li>
 				<li className={styles.desktop_li}>
-					<Link to={"/pets"} className={styles.link}>
+					<Link to={tokenValue ? "/pets" : "/signin"} className={styles.link}>
 						Mis mascotas reportadas
 					</Link>
 				</li>
 				<li className={styles.desktop_li}>
-					<Link to={"/report"} className={styles.link}>
+					<Link to={tokenValue ? "/report" : "/signin"} className={styles.link}>
 						Reportar mascota
 					</Link>
 				</li>
 			</ul>
-			<div className={styles.desktop_user}>
-				<SpecialText>leandro@mail</SpecialText>
-				<LinkText>cerrar sesión</LinkText>
-			</div>
+			{tokenValue ? (
+				<div className={styles.desktop_user}>
+					<SpecialText>{email}</SpecialText>
+					<LinkText onClick={handleSession}>cerrar sesión</LinkText>
+				</div>
+			) : null}
 		</header>
 	);
 }

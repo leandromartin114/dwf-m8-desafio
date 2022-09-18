@@ -1,7 +1,7 @@
 import React from "react";
 import styles from "./index.css";
 import { InputText } from "ui/text-field";
-import { MainButton, GreenButton, GreyButton } from "ui/buttons";
+import { MainButton, GreyButton } from "ui/buttons";
 import { Text } from "ui/text";
 import { MapBox } from "ui/map";
 import { MyDropzone } from "ui/dropzone";

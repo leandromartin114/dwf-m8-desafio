@@ -1,5 +1,10 @@
 import React from "react";
+import { SignupForm } from "components/form-signup";
 
 export function SignupPage() {
-	return <div>SignupPage</div>;
+	return (
+		<div>
+			<SignupForm></SignupForm>
+		</div>
+	);
 }
