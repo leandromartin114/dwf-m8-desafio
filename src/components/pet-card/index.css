@@ -1,0 +1,35 @@
+.card{
+    width: 350px;
+    height: 480px;
+    display: grid;
+    align-items: center;
+    justify-items: center;
+    border: 3px solid rgb(128, 38, 212);
+}
+.card_img{
+    width: 250px;
+    height: 250px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: lightgrey;
+    background-size: cover;
+    background-position: 50% 50%;
+    position: relative;
+}
+.card_content{
+    display: grid;
+    gap: 16px;
+    align-items: center;
+    justify-items: center;
+}
+.pet_content{
+    display: grid;
+    align-items: center;
+    justify-items: center;
+}
+.info_content{
+    display: grid;
+    align-items: center;
+    justify-items: center;
+}

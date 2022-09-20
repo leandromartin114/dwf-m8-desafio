@@ -5,20 +5,23 @@ import cancel from "assets/cancel.png";
 import nav from "assets/menu.png";
 import { SpecialText, LinkText } from "ui/text";
 import { Link } from "react-router-dom";
-import { useEmailValue, useTokenState, useTokenValeu } from "hooks";
+import { useEmailState, useTokenState, useTokenValeu } from "hooks";
 
 export function BurgerMenu() {
 	const navigate = useNavigate();
 	const [open, setOpen] = useState(false);
-	const email = useEmailValue();
 	const [token, setToken] = useTokenState();
+	const [email, setEmail] = useEmailState();
 	const tokenValue = useTokenValeu();
 	function handleToggle() {
 		setOpen(!open);
 	}
 	function handleSession() {
 		setToken("");
+		setEmail("");
+		localStorage.removeItem("local_data");
 		navigate("/");
+		setOpen(!open);
 	}
 	return (
 		<div>
