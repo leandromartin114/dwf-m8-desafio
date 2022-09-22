@@ -6,7 +6,7 @@ type inputProps = {
 	label: string;
 	name: string;
 	type;
-	value?: string;
+	defaultValue?: string;
 	onChange?: (any) => any;
 	onKeyDown?: (any) => any;
 };
@@ -21,7 +21,7 @@ export function InputText(props: inputProps) {
 			<input
 				onKeyDown={props.onKeyDown}
 				onChange={props.onChange}
-				value={props.value}
+				defaultValue={props.defaultValue}
 				type={props.type}
 				name={props.name}
 				className={styles.input}

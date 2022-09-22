@@ -4,7 +4,7 @@ import { recoilPersist } from "recoil-persist";
 //persist in localStorage
 const { persistAtom } = recoilPersist({
 	key: "local_data",
-	storage: localStorage,
+	storage: sessionStorage,
 });
 
 //atoms
@@ -20,12 +20,17 @@ const tokenState = atom({
 });
 const userState = atom({
 	key: "user",
-	default: {},
+	default: { email: "", fullName: "", password: "" },
 	effects_UNSTABLE: [persistAtom],
 });
 const petState = atom({
 	key: "pet",
-	default: {},
+	default: { name: "", description: "", location: "", imgURL: "" },
+	effects_UNSTABLE: [persistAtom],
+});
+const petIdState = atom({
+	key: "petId",
+	default: 0,
 	effects_UNSTABLE: [persistAtom],
 });
 
@@ -53,16 +58,23 @@ export function useTokenValeu(): string {
 	return token;
 }
 export function useUserState(): [
-	{},
-	React.Dispatch<React.SetStateAction<string>>
+	any,
+	React.Dispatch<React.SetStateAction<any>>
 ] {
 	const [user, setUser] = useRecoilState(userState);
 	return [user, setUser];
 }
 export function usePetState(): [
-	{},
-	React.Dispatch<React.SetStateAction<string>>
+	any,
+	React.Dispatch<React.SetStateAction<any>>
 ] {
 	const [pet, setPet] = useRecoilState(petState);
 	return [pet, setPet];
+}
+export function usePetIdState(): [
+	any,
+	React.Dispatch<React.SetStateAction<any>>
+] {
+	const [petId, setPetId] = useRecoilState(petIdState);
+	return [petId, setPetId];
 }

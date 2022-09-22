@@ -7,11 +7,11 @@ import { InputText } from "ui/text-field";
 import { MainButton } from "ui/buttons";
 
 type MapBoxProps = {
-	onChange?: (any) => any;
+	onChange?: (arg1: any, arg2: any) => any;
 };
 
 export function MapBox(props: MapBoxProps) {
-	const { onChange } = props;
+	// const { onChange } = props;
 	const initialCoords: any = [-68.838844, -32.888355];
 	const [coords, setCoords] = useState(initialCoords);
 	const [query, setQuery] = useState("");
@@ -32,11 +32,8 @@ export function MapBox(props: MapBoxProps) {
 			.then((data) => {
 				setCoords(data);
 				// lo "tiro" hacia arriba para que reciban las coordenadas desde "afuera"
-				if (onChange) {
-					onChange({
-						query: query,
-						coords: data,
-					});
+				if (props.onChange) {
+					props.onChange(query, data);
 				}
 			});
 	}
@@ -74,7 +71,7 @@ export function MapBox(props: MapBoxProps) {
 				<InputText
 					onChange={inputChangeHandler}
 					onKeyDown={keydownInputHandler}
-					value={query}
+					defaultValue={query}
 					label='Ubicación'
 					name='query'
 					type='search'

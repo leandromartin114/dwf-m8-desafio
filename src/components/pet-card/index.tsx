@@ -2,6 +2,8 @@ import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { Title, SubTitle, Text, LinkText } from "ui/text";
 import styles from "./index.css";
+import { usePetIdState, usePetState } from "hooks";
+import pencil from "assets/pencil.png";
 
 type petProps = {
 	objectID: number;
@@ -11,11 +13,21 @@ type petProps = {
 	description: string;
 	location: string;
 };
+type myPetProps = {
+	id: number;
+	imgURL: string;
+	state: string;
+	name: string;
+	description: string;
+	location: string;
+};
 export function PetCard(props: petProps) {
 	const navigate = useNavigate();
 	const [color, setColor] = useState(null);
+	const [petId, setPetId] = usePetIdState();
 
 	function handleClick() {
+		setPetId(props.objectID);
 		navigate("/info");
 	}
 	useEffect(() => {
@@ -43,6 +55,60 @@ export function PetCard(props: petProps) {
 				<div className={styles.info_content}>
 					<SubTitle>{props.location}</SubTitle>
 					<LinkText onClick={handleClick}>REPORTAR INFORMACIÓN</LinkText>
+				</div>
+			</div>
+		</div>
+	);
+}
+export function MyPetCard(props: myPetProps) {
+	const navigate = useNavigate();
+	const [color, setColor] = useState(null);
+	const [pet, setPet] = usePetState();
+
+	function handleClick() {
+		const myPetData = {
+			id: props.id,
+			imgURL: props.imgURL,
+			state: props.state,
+			name: props.name,
+			description: props.description,
+			location: props.location,
+		};
+		setPet(myPetData);
+		navigate("/edit");
+	}
+	useEffect(() => {
+		if (props.state === "FINDED" || "FOUND") {
+			setColor("green");
+		}
+		if (props.state === "UNPUBLISH") {
+			setColor("yellow");
+		}
+		if (props.state === "LOST") {
+			setColor("red");
+		}
+	}, [color]);
+
+	return (
+		<div className={styles.card}>
+			<div
+				className={styles.card_img}
+				style={{ backgroundImage: `url(${props.imgURL})` }}
+			>
+				<Title color={color}>{props.state}</Title>
+			</div>
+			<div className={styles.card_content}>
+				<div className={styles.pet_content}>
+					<Title>{props.name}</Title>
+					<Text>{props.description}</Text>
+				</div>
+				<div className={styles.info_content}>
+					<SubTitle>{props.location}</SubTitle>
+					<img
+						onClick={handleClick}
+						src={pencil}
+						className={styles.edit_pencil}
+					/>
 				</div>
 			</div>
 		</div>

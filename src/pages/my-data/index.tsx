@@ -1,5 +1,10 @@
 import React from "react";
+import { MyDataForm } from "components/form-mydata";
 
 export function MyDataPage() {
-	return <div>MyDataPage</div>;
+	return (
+		<div>
+			<MyDataForm></MyDataForm>
+		</div>
+	);
 }

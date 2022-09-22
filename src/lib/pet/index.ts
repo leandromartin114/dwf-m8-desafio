@@ -7,7 +7,7 @@ type petDataParam = {
 	location: string;
 	lat: number;
 	lng: number;
-	state: "LOST" | "FINDED" | "UNPUBLISHED";
+	state: "LOST" | "FOUND" | "UNPUBLISHED";
 };
 //report a new lost pet
 export async function reportNewLostPet(

@@ -9,20 +9,22 @@ import { useEmailState, useTokenState, useTokenValeu } from "hooks";
 
 export function BurgerMenu() {
 	const navigate = useNavigate();
+	const tokenValue = useTokenValeu();
 	const [open, setOpen] = useState(false);
 	const [token, setToken] = useTokenState();
 	const [email, setEmail] = useEmailState();
-	const tokenValue = useTokenValeu();
+
 	function handleToggle() {
 		setOpen(!open);
 	}
+
 	function handleSession() {
 		setToken("");
-		setEmail("");
-		localStorage.removeItem("local_data");
+		sessionStorage.removeItem("local_data");
 		navigate("/");
 		setOpen(!open);
 	}
+
 	return (
 		<div>
 			<img onClick={handleToggle} src={nav} className={styles.open_nav} />

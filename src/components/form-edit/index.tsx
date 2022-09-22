@@ -2,20 +2,20 @@ import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import styles from "./index.css";
 import { InputText } from "ui/text-field";
-import { MainButton, GreyButton } from "ui/buttons";
+import { MainButton, GreenButton, RedButton } from "ui/buttons";
 import { Text } from "ui/text";
 import { MapBox } from "ui/map";
 import { MyDropzone } from "ui/dropzone";
-import { useTokenValeu, useEmailValue } from "hooks";
+import { useTokenValeu, useEmailValue, usePetState } from "hooks";
 import { reportNewLostPet } from "lib/pet";
 import Swal from "sweetalert2";
 
-export function ReportForm() {
+export function EditForm() {
 	const navigate = useNavigate();
 	const [loc, setLoc] = useState(null);
 	const [coords, setCoords] = useState([]);
 	const [img, setImg] = useState(null);
-	const [pet, setPet] = useState(null);
+	const [pet, setPet] = usePetState();
 	const email = useEmailValue();
 	const token = useTokenValeu();
 
@@ -59,30 +59,32 @@ export function ReportForm() {
 		}
 	}
 
-	function handleCancel() {
-		navigate("/home");
-	}
-
 	useEffect(() => {
 		if (pet !== null) {
-			const response = reportNewLostPet(pet, token, email);
-			response.then((r) => {
-				console.log(r);
-				Swal.fire({
-					title: "Mascota reportada",
-					text: "¡Esperamos que puedas encontrarla pronto!",
-					icon: "success",
-					confirmButtonColor: "rgb(128, 38, 212)",
-				});
-				navigate("/pets");
-			});
+			// const response = reportNewLostPet(pet, token, email);
+			// response.then((r) => {
+			// 	console.log(r);
+			// 	Swal.fire({
+			// 		title: "Mascota reportada",
+			// 		text: "¡Esperamos que puedas encontrarla pronto!",
+			// 		icon: "success",
+			// 		confirmButtonColor: "rgb(128, 38, 212)",
+			// 	});
+			// 	navigate("/pets");
+			// });
 		}
 	}, [pet]);
 
 	return (
 		<form onSubmit={handleSubmit} className={styles.form}>
-			<InputText label='Nombre' name='name' type='text'></InputText>
 			<InputText
+				defaultValue={pet.name}
+				label='Nombre'
+				name='name'
+				type='text'
+			></InputText>
+			<InputText
+				defaultValue={pet.description}
 				label='Breve descripción'
 				name='description'
 				type='text'
@@ -93,10 +95,9 @@ export function ReportForm() {
 				BUSCÁ UN PUNTO DE REFERENCIA PARA REPORTAR A TU MASCOTA. PUEDE SER UNA
 				DIRECCIÓN, UN BARRIO O UNA CIUDAD
 			</Text>
-			<MainButton type='submit'>Reportar mascota</MainButton>
-			<GreyButton onClick={handleCancel} type='button'>
-				Cancelar
-			</GreyButton>
+			<MainButton type='submit'>Guardar</MainButton>
+			<GreenButton type='button'>Reportar como encontrado</GreenButton>
+			<RedButton type='button'>Despublicar</RedButton>
 		</form>
 	);
 }

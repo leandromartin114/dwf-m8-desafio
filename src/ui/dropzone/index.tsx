@@ -3,7 +3,10 @@ import { useDropzone } from "react-dropzone";
 import styles from "./index.css";
 import { GreenButton } from "ui/buttons";
 
-export function MyDropzone(props) {
+type DropzoneProps = {
+	onLoadImg?: (any) => any;
+};
+export function MyDropzone(props: DropzoneProps) {
 	const [img, setImg] = useState(null);
 	const [files, setFiles] = useState([]);
 	const { getRootProps, getInputProps, open } = useDropzone({
@@ -15,7 +18,9 @@ export function MyDropzone(props) {
 			const reader = new FileReader();
 			reader.onload = (event) => {
 				setImg(event.target.result);
-				//   setPet({ ...pet, petImg64: event.target.result });
+				if (props.onLoadImg) {
+					props.onLoadImg(event.target.result);
+				}
 			};
 			reader.readAsDataURL(acceptedFiles[0]);
 			setFiles(

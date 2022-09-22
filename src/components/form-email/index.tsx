@@ -18,7 +18,7 @@ export function EmailForm() {
 	}
 
 	function handleNonExistentMail() {
-		setEmail("");
+		// setEmail("");
 		navigate("/signup");
 		Swal.fire({
 			title: "Email no encontrado",

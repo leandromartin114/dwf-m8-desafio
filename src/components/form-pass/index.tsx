@@ -3,8 +3,8 @@ import { useNavigate } from "react-router-dom";
 import { InputText } from "ui/text-field";
 import { MainButton } from "ui/buttons";
 import styles from "./index.css";
-import { useEmailValue, useTokenState } from "hooks";
-import { signinAndGetToken } from "lib/user";
+import { useEmailValue, useTokenState, useUserState } from "hooks";
+import { signinAndGetToken, getUserData } from "lib/user";
 import Swal from "sweetalert2";
 
 export function PassForm() {
@@ -12,12 +12,14 @@ export function PassForm() {
 	const email = useEmailValue();
 	const [pass, setPass] = useState(null);
 	const [token, setToken] = useTokenState();
+	const [user, setUser] = useUserState();
 
 	function handleSubmit(e) {
 		e.preventDefault();
 		const value = e.target.password.value;
 		setPass(value);
 	}
+
 	useEffect(() => {
 		if (pass) {
 			const result = signinAndGetToken(email, pass);
@@ -31,6 +33,14 @@ export function PassForm() {
 					});
 				} else {
 					setToken(t);
+					const response = getUserData(t);
+					response.then((u) => {
+						setUser({
+							email: u.email,
+							fullName: u.fullName,
+							password: "",
+						});
+					});
 					navigate("/home");
 				}
 			});

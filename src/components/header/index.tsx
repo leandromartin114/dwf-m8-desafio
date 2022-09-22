@@ -9,18 +9,20 @@ import { useEmailState, useTokenState, useTokenValeu } from "hooks";
 
 export function CustomHeader() {
 	const navigate = useNavigate();
+	const tokenValue = useTokenValeu();
 	const [token, setToken] = useTokenState();
 	const [email, setEmail] = useEmailState();
-	const tokenValue = useTokenValeu();
+
 	function handleSession() {
 		setToken("");
-		setEmail("");
-		localStorage.removeItem("local_data");
+		sessionStorage.removeItem("local_data");
 		navigate("/");
 	}
+
 	function handleClick() {
 		navigate("/home");
 	}
+
 	return (
 		<header className={styles.header}>
 			<img onClick={handleClick} src={logo} className={styles.logo} />
