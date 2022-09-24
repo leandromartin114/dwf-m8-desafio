@@ -1,15 +1,15 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { InputText } from "ui/text-field";
-import { MainButton } from "ui/buttons";
+import { MainButton, GreyButton } from "ui/buttons";
 import styles from "./index.css";
-import { useEmailValue } from "hooks";
+import { useEmailState } from "hooks";
 import { createUser } from "lib/user";
 import Swal from "sweetalert2";
 
 export function SignupForm() {
 	const navigate = useNavigate();
-	const email = useEmailValue();
+	const [email, setEmail] = useEmailState();
 	const [fullName, setFullName] = useState();
 	const [pass, setPass] = useState();
 
@@ -41,6 +41,11 @@ export function SignupForm() {
 		}
 	}
 
+	function handleClick() {
+		setEmail("");
+		navigate("/home");
+	}
+
 	useEffect(() => {
 		if (email && fullName && pass) {
 			const response = createUser(email, fullName, pass);
@@ -66,6 +71,9 @@ export function SignupForm() {
 				type='password'
 			></InputText>
 			<MainButton type='submit'>Guardar</MainButton>
+			<GreyButton onClick={handleClick} type='button'>
+				Cancelar
+			</GreyButton>
 		</form>
 	);
 }

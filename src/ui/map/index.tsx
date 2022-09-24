@@ -8,6 +8,7 @@ import { MainButton } from "ui/buttons";
 
 type MapBoxProps = {
 	onChange?: (arg1: any, arg2: any) => any;
+	defaultValue?: string;
 };
 
 export function MapBox(props: MapBoxProps) {
@@ -19,7 +20,7 @@ export function MapBox(props: MapBoxProps) {
 	async function search() {
 		geoClient
 			.forwardGeocode({
-				query: query,
+				query: query ? query : props.defaultValue,
 				countries: ["ar"],
 				limit: 2,
 			})
@@ -39,7 +40,7 @@ export function MapBox(props: MapBoxProps) {
 	}
 
 	function inputChangeHandler(e) {
-		setQuery(e.target.value);
+		setQuery(e.target.value ? e.target.value : props.defaultValue);
 	}
 
 	function keydownInputHandler(e) {
@@ -71,10 +72,11 @@ export function MapBox(props: MapBoxProps) {
 				<InputText
 					onChange={inputChangeHandler}
 					onKeyDown={keydownInputHandler}
-					defaultValue={query}
+					defaultValue={query ? query : props.defaultValue}
 					label='Ubicación'
 					name='query'
 					type='search'
+					// value={query}
 				></InputText>
 				<MainButton onClick={search} type='button'>
 					Buscar

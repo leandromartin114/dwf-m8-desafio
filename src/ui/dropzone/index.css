@@ -1,32 +1,16 @@
-.container{ 
+.container{
+    width: 100%;
+    max-width: 290px;
+}
+@media (min-width: 969px){
+    .container{
+        max-width: 360px;
+    }
+
+}
+.aside_container{ 
     display: flex;
     margin-top: 16px;
     align-items: center;
 	justify-content: center;
 };
-
-/* 
-.thumb {
-    display: inline-flex;
-    border-radius: 2px;
-    border: 1px solid #eaeaea;
-    margin-bottom: 8px;
-    margin-right: 8px;
-    width: 290px;
-    height: 290px;
-    padding: 4px;
-    box-sizing: border-box
-};
-
-.thumb_inner{
-    display: flex;
-    overflow: hidden;
-    width: 290px;
-    height: 290px;
-};
-
-.img {
-    display: block;
-    width: auto;
-    height: 100%
-}; */

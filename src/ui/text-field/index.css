@@ -1,10 +1,13 @@
 .label{
+    width: 100%;
+    max-width: 290px;
     display: grid;
     justify-items: start ;
 }
 .input{
+    max-width: 290px;
     box-sizing: border-box;
-    width: 290px;
+    width: 100%;
     padding: 5px 2px;
     border: 3px solid rgb(128, 38, 212);
     border-radius: 8px;
@@ -26,6 +29,9 @@ input::placeholder{
     height: 100px;
 }
 @media (min-width: 969px){
+    .label{
+        max-width: 360px;
+    }
     .input{
         max-width: 360px;
         font-size: 26px;
@@ -33,6 +39,7 @@ input::placeholder{
         padding: 7px 3px;
     }
     .area{
+        max-width: 360px;
         height: 140px;
     }
 }

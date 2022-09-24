@@ -28,9 +28,9 @@ const petState = atom({
 	default: { name: "", description: "", location: "", imgURL: "" },
 	effects_UNSTABLE: [persistAtom],
 });
-const petIdState = atom({
-	key: "petId",
-	default: 0,
+const petInfoState = atom({
+	key: "petInfo",
+	default: { name: "", id: 0, email: "" },
 	effects_UNSTABLE: [persistAtom],
 });
 
@@ -71,10 +71,10 @@ export function usePetState(): [
 	const [pet, setPet] = useRecoilState(petState);
 	return [pet, setPet];
 }
-export function usePetIdState(): [
+export function usePetInfoState(): [
 	any,
 	React.Dispatch<React.SetStateAction<any>>
 ] {
-	const [petId, setPetId] = useRecoilState(petIdState);
-	return [petId, setPetId];
+	const [petInfo, setPetInfo] = useRecoilState(petInfoState);
+	return [petInfo, setPetInfo];
 }

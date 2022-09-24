@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { Title, SubTitle, Text, LinkText } from "ui/text";
 import styles from "./index.css";
-import { usePetIdState, usePetState } from "hooks";
+import { usePetInfoState, usePetState } from "hooks";
 import pencil from "assets/pencil.png";
 
 type petProps = {
@@ -12,24 +12,24 @@ type petProps = {
 	name: string;
 	description: string;
 	location: string;
+	email: string;
 };
-type myPetProps = {
-	id: number;
-	imgURL: string;
-	state: string;
-	name: string;
-	description: string;
-	location: string;
-};
+
 export function PetCard(props: petProps) {
 	const navigate = useNavigate();
 	const [color, setColor] = useState(null);
-	const [petId, setPetId] = usePetIdState();
+	const [petInfo, setPetInfo] = usePetInfoState();
 
 	function handleClick() {
-		setPetId(props.objectID);
+		const InfoForReport = {
+			name: props.name,
+			email: props.email,
+			id: props.objectID,
+		};
+		setPetInfo(InfoForReport);
 		navigate("/info");
 	}
+
 	useEffect(() => {
 		if (props.state == "LOST") {
 			setColor("red");
@@ -60,6 +60,16 @@ export function PetCard(props: petProps) {
 		</div>
 	);
 }
+
+type myPetProps = {
+	id: number;
+	imgURL: string;
+	state: string;
+	name: string;
+	description: string;
+	location: string;
+};
+
 export function MyPetCard(props: myPetProps) {
 	const navigate = useNavigate();
 	const [color, setColor] = useState(null);

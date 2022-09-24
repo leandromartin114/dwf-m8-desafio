@@ -6,6 +6,7 @@ type inputProps = {
 	label: string;
 	name: string;
 	type;
+	value?: string;
 	defaultValue?: string;
 	onChange?: (any) => any;
 	onKeyDown?: (any) => any;
@@ -25,6 +26,7 @@ export function InputText(props: inputProps) {
 				type={props.type}
 				name={props.name}
 				className={styles.input}
+				value={props.value}
 			/>
 		</label>
 	);

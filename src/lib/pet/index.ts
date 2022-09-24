@@ -1,13 +1,13 @@
 const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
 
-type petDataParam = {
+export type petDataParam = {
 	name: string;
 	description: string;
 	imgURL: string;
 	location: string;
 	lat: number;
 	lng: number;
-	state: "LOST" | "FOUND" | "UNPUBLISHED";
+	state?: "LOST" | "FOUND" | "UNPUBLISH";
 };
 //report a new lost pet
 export async function reportNewLostPet(
@@ -87,9 +87,11 @@ export async function getPetsNearBy(lat: number, lng: number) {
 }
 //Giving info about a seen pet
 type infoReportParam = {
-	name: string;
-	phone: number;
-	location: string;
+	fullName: string;
+	phoneNumber: number;
+	placeDescription: string;
+	petName: string;
+	email: string;
 };
 export async function reportInfoAboutAPet(
 	petReportInfo: infoReportParam,

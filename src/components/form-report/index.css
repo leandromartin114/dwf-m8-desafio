@@ -4,6 +4,7 @@
     justify-items: center;
     align-items: center;
     margin: 0;
+    padding: 20px 10px;
 }
 .pic_container{
     display: flex;

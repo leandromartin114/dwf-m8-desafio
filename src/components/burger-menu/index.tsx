@@ -20,6 +20,7 @@ export function BurgerMenu() {
 
 	function handleSession() {
 		setToken("");
+		setEmail("");
 		sessionStorage.removeItem("local_data");
 		navigate("/");
 		setOpen(!open);

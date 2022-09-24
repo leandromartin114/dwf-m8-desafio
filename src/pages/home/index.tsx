@@ -49,6 +49,7 @@ export function HomePage() {
 						location={p.location}
 						objectID={p.objectID}
 						state={p.state}
+						email={p.email}
 					/>
 				))}
 			</div>

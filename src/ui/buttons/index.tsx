@@ -51,8 +51,17 @@ export function GreyButton(props) {
 	);
 }
 export function RedButton(props) {
+	function handleClick() {
+		if (props.onClick) {
+			props.onClick();
+		}
+	}
 	return (
-		<button className={`${styles.main} ${styles.red}`} type={props.type}>
+		<button
+			onClick={handleClick}
+			className={`${styles.main} ${styles.red}`}
+			type={props.type}
+		>
 			{props.children}
 		</button>
 	);

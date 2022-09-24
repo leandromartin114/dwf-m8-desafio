@@ -15,6 +15,7 @@ export function CustomHeader() {
 
 	function handleSession() {
 		setToken("");
+		setEmail("");
 		sessionStorage.removeItem("local_data");
 		navigate("/");
 	}

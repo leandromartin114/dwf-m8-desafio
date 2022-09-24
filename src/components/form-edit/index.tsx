@@ -7,7 +7,7 @@ import { Text } from "ui/text";
 import { MapBox } from "ui/map";
 import { MyDropzone } from "ui/dropzone";
 import { useTokenValeu, useEmailValue, usePetState } from "hooks";
-import { reportNewLostPet } from "lib/pet";
+import { updatePet, petDataParam } from "lib/pet";
 import Swal from "sweetalert2";
 
 export function EditForm() {
@@ -31,24 +31,33 @@ export function EditForm() {
 	function handleSubmit(e) {
 		e.preventDefault();
 		const target = e.target;
-		const newPet = {
+		const updatedPetData: petDataParam = {
 			name: target.name.value,
 			description: target.description.value,
 			imgURL: img,
 			lat: coords[1],
 			lng: coords[0],
 			location: loc,
-			state: "LOST",
 		};
 		if (
-			newPet.name !== "" &&
-			newPet.description !== "" &&
-			newPet.imgURL !== undefined &&
-			newPet.lat !== undefined &&
-			newPet.lng !== undefined &&
-			newPet.location !== undefined
+			updatedPetData.name !== "" &&
+			updatedPetData.description !== "" &&
+			updatedPetData.imgURL !== undefined &&
+			updatedPetData.lat !== undefined &&
+			updatedPetData.lng !== undefined &&
+			updatedPetData.location !== undefined
 		) {
-			setPet(newPet);
+			setPet(updatedPetData);
+			const result = updatePet(updatedPetData, pet.id, token, email);
+			result.then(() => {
+				Swal.fire({
+					title: "Datos guardados con éxito",
+					text: "¡Esperamos que puedas encontrar a tu mascota pronto!",
+					icon: "success",
+					confirmButtonColor: "rgb(128, 38, 212)",
+				});
+				navigate("/pets");
+			});
 		} else {
 			Swal.fire({
 				title: "Los campos no pueden estar vacios",
@@ -59,21 +68,49 @@ export function EditForm() {
 		}
 	}
 
-	useEffect(() => {
-		if (pet !== null) {
-			// const response = reportNewLostPet(pet, token, email);
-			// response.then((r) => {
-			// 	console.log(r);
-			// 	Swal.fire({
-			// 		title: "Mascota reportada",
-			// 		text: "¡Esperamos que puedas encontrarla pronto!",
-			// 		icon: "success",
-			// 		confirmButtonColor: "rgb(128, 38, 212)",
-			// 	});
-			// 	navigate("/pets");
-			// });
-		}
-	}, [pet]);
+	function unpublishPet() {
+		const updatedPetData: petDataParam = {
+			name: pet.name,
+			description: pet.description,
+			imgURL: pet.imgURL,
+			lat: pet.lat,
+			lng: pet.lng,
+			location: pet.loc,
+			state: "UNPUBLISH",
+		};
+		const result = updatePet(updatedPetData, pet.id, token, email);
+		result.then(() => {
+			Swal.fire({
+				title: "Mascota despublicada",
+				text: "Esperamos haberte ayudado",
+				icon: "success",
+				confirmButtonColor: "rgb(128, 38, 212)",
+			});
+			navigate("/pets");
+		});
+	}
+
+	function foundPet() {
+		const updatedPetData: petDataParam = {
+			name: pet.name,
+			description: pet.description,
+			imgURL: pet.imgURL,
+			lat: pet.lat,
+			lng: pet.lng,
+			location: pet.loc,
+			state: "FOUND",
+		};
+		const result = updatePet(updatedPetData, pet.id, token, email);
+		result.then(() => {
+			Swal.fire({
+				title: "¡Que alegría que encontraste a " + pet.name + "!",
+				text: "Nos alegra haber ayudado a encontrarlo",
+				icon: "success",
+				confirmButtonColor: "rgb(128, 38, 212)",
+			});
+			navigate("/pets");
+		});
+	}
 
 	return (
 		<form onSubmit={handleSubmit} className={styles.form}>
@@ -89,15 +126,19 @@ export function EditForm() {
 				name='description'
 				type='text'
 			></InputText>
-			<MyDropzone onLoadImg={setImgData} />
-			<MapBox onChange={setMapData} />
+			<MyDropzone defaultValue={pet.imgURL} onLoadImg={setImgData} />
+			<MapBox defaultValue={pet.location} onChange={setMapData} />
 			<Text>
 				BUSCÁ UN PUNTO DE REFERENCIA PARA REPORTAR A TU MASCOTA. PUEDE SER UNA
 				DIRECCIÓN, UN BARRIO O UNA CIUDAD
 			</Text>
 			<MainButton type='submit'>Guardar</MainButton>
-			<GreenButton type='button'>Reportar como encontrado</GreenButton>
-			<RedButton type='button'>Despublicar</RedButton>
+			<GreenButton onClick={foundPet} type='button'>
+				Reportar como encontrado
+			</GreenButton>
+			<RedButton onClick={unpublishPet} type='button'>
+				Despublicar
+			</RedButton>
 		</form>
 	);
 }
