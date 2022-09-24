@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from "react";
+import React, { useState } from "react";
 import { Marker } from "react-mapbox-gl";
 import marker from "assets/marker.png";
 import styles from "./index.css";
