@@ -21,9 +21,7 @@ export function MyDropzone(props: DropzoneProps) {
 			reader.onload = (event) => {
 				setImg(event.target.result);
 				if (props.onLoadImg) {
-					props.onLoadImg(
-						event.target.result ? event.target.result : props.defaultValue
-					);
+					props.onLoadImg(event.target.result);
 				}
 			};
 			reader.readAsDataURL(acceptedFiles[0]);

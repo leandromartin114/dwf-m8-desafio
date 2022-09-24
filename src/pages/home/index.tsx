@@ -39,20 +39,24 @@ export function HomePage() {
 				</Text>
 				<MainButton onClick={handleLocation}>Mi ubicación</MainButton>
 			</div>
-			<div className={styles.cards_container}>
-				{pets.map((p) => (
-					<PetCard
-						key={p.objectID}
-						name={p.name}
-						description={p.description}
-						imgURL={p.imgURL}
-						location={p.location}
-						objectID={p.objectID}
-						state={p.state}
-						email={p.email}
-					/>
-				))}
-			</div>
+			{pets ? (
+				<div className={styles.cards_container}>
+					{pets.map((p) => (
+						<PetCard
+							key={p.objectID}
+							name={p.name}
+							description={p.description}
+							imgURL={p.imgURL}
+							location={p.location}
+							objectID={p.objectID}
+							state={p.state}
+							email={p.email}
+						/>
+					))}
+				</div>
+			) : (
+				<Text>Por el momento no hay mascotas reportadas en tu zona</Text>
+			)}
 		</div>
 	);
 }

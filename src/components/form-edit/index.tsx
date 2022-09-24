@@ -32,40 +32,53 @@ export function EditForm() {
 		e.preventDefault();
 		const target = e.target;
 		const updatedPetData: petDataParam = {
-			name: target.name.value,
-			description: target.description.value,
-			imgURL: img,
-			lat: coords[1],
-			lng: coords[0],
-			location: loc,
+			name: target.name.value ? target.name.value : pet.name,
+			description: target.description.value
+				? target.description.value
+				: pet.description,
+			imgURL: img ? img : pet.imgURL,
+			lat: coords[1] ? coords[1] : pet.lat,
+			lng: coords[0] ? coords[0] : pet.lng,
+			location: loc ? loc : pet.location,
 		};
-		if (
-			updatedPetData.name !== "" &&
-			updatedPetData.description !== "" &&
-			updatedPetData.imgURL !== undefined &&
-			updatedPetData.lat !== undefined &&
-			updatedPetData.lng !== undefined &&
-			updatedPetData.location !== undefined
-		) {
-			setPet(updatedPetData);
-			const result = updatePet(updatedPetData, pet.id, token, email);
-			result.then(() => {
-				Swal.fire({
-					title: "Datos guardados con éxito",
-					text: "¡Esperamos que puedas encontrar a tu mascota pronto!",
-					icon: "success",
-					confirmButtonColor: "rgb(128, 38, 212)",
-				});
-				navigate("/pets");
-			});
-		} else {
+		setPet(updatedPetData);
+		const result = updatePet(updatedPetData, pet.id, token, email);
+		result.then(() => {
 			Swal.fire({
-				title: "Los campos no pueden estar vacios",
-				text: "Por favor completa todos los campos",
-				icon: "warning",
+				title: "Datos guardados con éxito",
+				text: "¡Esperamos que puedas encontrar a tu mascota pronto!",
+				icon: "success",
 				confirmButtonColor: "rgb(128, 38, 212)",
 			});
-		}
+			navigate("/pets");
+		});
+		// if (
+		// 	updatedPetData.name !== "" &&
+		// 	updatedPetData.description !== "" &&
+		// 	updatedPetData.imgURL !== undefined &&
+		// 	updatedPetData.lat !== undefined &&
+		// 	updatedPetData.lng !== undefined &&
+		// 	updatedPetData.location !== undefined
+		// ) {
+		// 	setPet(updatedPetData);
+		// 	const result = updatePet(updatedPetData, pet.id, token, email);
+		// 	result.then(() => {
+		// 		Swal.fire({
+		// 			title: "Datos guardados con éxito",
+		// 			text: "¡Esperamos que puedas encontrar a tu mascota pronto!",
+		// 			icon: "success",
+		// 			confirmButtonColor: "rgb(128, 38, 212)",
+		// 		});
+		// 		navigate("/pets");
+		// 	});
+		// } else {
+		// 	Swal.fire({
+		// 		title: "Los campos no pueden estar vacios",
+		// 		text: "Por favor completa todos los campos",
+		// 		icon: "warning",
+		// 		confirmButtonColor: "rgb(128, 38, 212)",
+		// 	});
+		// }
 	}
 
 	function unpublishPet() {
