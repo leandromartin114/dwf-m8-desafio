@@ -15,6 +15,10 @@ export function EmailForm() {
 		e.preventDefault();
 		const value = e.target.email.value;
 		setEmail(value);
+		const response = checkExistingUser(value);
+		response.then((res) => {
+			res == "Yes" ? navigate("/pass") : handleNonExistentMail();
+		});
 	}
 
 	function handleNonExistentMail() {
@@ -28,14 +32,14 @@ export function EmailForm() {
 		});
 	}
 
-	useEffect(() => {
-		if (email) {
-			const response = checkExistingUser(email);
-			response.then((res) => {
-				res == "Yes" ? navigate("/pass") : handleNonExistentMail();
-			});
-		}
-	}, [email]);
+	// useEffect(() => {
+	// 	if (email) {
+	// 		const response = checkExistingUser(email);
+	// 		response.then((res) => {
+	// 			res == "Yes" ? navigate("/pass") : handleNonExistentMail();
+	// 		});
+	// 	}
+	// }, [email]);
 
 	return (
 		<form onSubmit={handleSubmit} className={styles.form}>
