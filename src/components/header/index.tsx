@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import styles from "./index.css";
 import logo from "assets/logo.png";
@@ -12,6 +12,7 @@ export function CustomHeader() {
 	const tokenValue = useTokenValeu();
 	const [token, setToken] = useTokenState();
 	const [email, setEmail] = useEmailState();
+	let emailValue: string;
 
 	function handleSession() {
 		setToken("");
@@ -23,6 +24,12 @@ export function CustomHeader() {
 	function handleClick() {
 		navigate("/home");
 	}
+
+	useEffect(() => {
+		if (email) {
+			emailValue = email;
+		}
+	}, [email]);
 
 	return (
 		<header className={styles.header}>
@@ -44,13 +51,19 @@ export function CustomHeader() {
 						Reportar mascota
 					</Link>
 				</li>
+				<li className={styles.desktop_li}>
+					{tokenValue ? (
+						<div className={styles.desktop_user}>
+							<SpecialText>{email}</SpecialText>
+							<LinkText onClick={handleSession}>cerrar sesión</LinkText>
+						</div>
+					) : (
+						<Link to={"/signin"} className={styles.link}>
+							Iniciar sesión
+						</Link>
+					)}
+				</li>
 			</ul>
-			{tokenValue ? (
-				<div className={styles.desktop_user}>
-					<SpecialText>{email}</SpecialText>
-					<LinkText onClick={handleSession}>cerrar sesión</LinkText>
-				</div>
-			) : null}
 		</header>
 	);
 }

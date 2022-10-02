@@ -20,16 +20,29 @@ export function InfoForm() {
 			petName: petInfo.name,
 			email: petInfo.email,
 		};
-		const result = reportInfoAboutAPet(reportInfo, petInfo.id);
-		result.then(() => {
+		if (
+			target.name.value !== "" &&
+			target.phone.value !== "" &&
+			target.location.value
+		) {
+			const result = reportInfoAboutAPet(reportInfo, petInfo.id);
+			result.then(() => {
+				Swal.fire({
+					title: "¡Gracias!",
+					text: "Tu ayuda es importante para encontrar esta mascota",
+					icon: "success",
+					confirmButtonColor: "rgb(128, 38, 212)",
+				});
+				navigate("/home");
+			});
+		} else {
 			Swal.fire({
-				title: "¡Gracias!",
-				text: "Tu ayuda es importante para encontrar esta mascota",
-				icon: "success",
+				title: "Los campos no pueden estar vacios",
+				text: "Por favor completa todos los campos",
+				icon: "warning",
 				confirmButtonColor: "rgb(128, 38, 212)",
 			});
-			navigate("/home");
-		});
+		}
 	}
 	return (
 		<form onSubmit={handleSubmit} className={styles.form}>

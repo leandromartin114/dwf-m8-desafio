@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import styles from "./index.css";
 import cancel from "assets/cancel.png";
@@ -13,6 +13,7 @@ export function BurgerMenu() {
 	const [open, setOpen] = useState(false);
 	const [token, setToken] = useTokenState();
 	const [email, setEmail] = useEmailState();
+	let emailValue: string;
 
 	function handleToggle() {
 		setOpen(!open);
@@ -25,6 +26,12 @@ export function BurgerMenu() {
 		navigate("/");
 		setOpen(!open);
 	}
+
+	useEffect(() => {
+		if (email) {
+			emailValue = email;
+		}
+	}, [email]);
 
 	return (
 		<div>
@@ -53,13 +60,19 @@ export function BurgerMenu() {
 							Reportar mascota
 						</Link>
 					</li>
+					<li onClick={handleToggle} className={styles.menu_li}>
+						{tokenValue ? (
+							<div className={styles.user}>
+								<SpecialText>{email}</SpecialText>
+								<LinkText onClick={handleSession}>cerrar sesión</LinkText>
+							</div>
+						) : (
+							<Link to={"/signin"} className={styles.link}>
+								Iniciar sesión
+							</Link>
+						)}
+					</li>
 				</ul>
-				{tokenValue ? (
-					<div className={styles.user}>
-						<SpecialText>{email}</SpecialText>
-						<LinkText onClick={handleSession}>cerrar sesión</LinkText>
-					</div>
-				) : null}
 			</div>
 		</div>
 	);

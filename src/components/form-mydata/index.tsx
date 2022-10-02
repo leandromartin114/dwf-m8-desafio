@@ -3,13 +3,14 @@ import { InputText } from "ui/text-field";
 import { MainButton } from "ui/buttons";
 import { Text } from "ui/text";
 import styles from "./index.css";
-import { useTokenValeu, useUserState } from "hooks";
+import { useTokenValeu, useUserState, useEmailState } from "hooks";
 import { updateUserData } from "lib/user";
 import Swal from "sweetalert2";
 
 export function MyDataForm() {
 	const token = useTokenValeu();
 	const [user, setUser] = useUserState();
+	const [email, setEmail] = useEmailState();
 
 	function handleSubmit(e) {
 		e.preventDefault();
@@ -22,6 +23,7 @@ export function MyDataForm() {
 					password: target.password.value,
 				};
 				setUser(newUserData);
+				setEmail(target.email.value);
 				const response = updateUserData(newUserData, token);
 				response.then(() => {
 					Swal.fire({
@@ -45,6 +47,7 @@ export function MyDataForm() {
 				fullName: target.fullName.value,
 			};
 			setUser(newUserData);
+			setEmail(target.email.value);
 			const response = updateUserData(newUserData, token);
 			response.then(() => {
 				Swal.fire({

@@ -4,9 +4,11 @@ import { Title, Text } from "ui/text";
 import { MainButton } from "ui/buttons";
 import { getPetsNearBy } from "lib/pet";
 import { PetCard } from "components/pet-card";
+import Swal from "sweetalert2";
+import { useCoordsState } from "hooks";
 
 export function HomePage() {
-	const [coords, setCoords] = useState(null);
+	const [coords, setCoords] = useCoordsState();
 	const [pets, setPets] = useState([]);
 
 	function handleLocation() {
@@ -21,10 +23,18 @@ export function HomePage() {
 		const result = getPetsNearBy(coords.lat, coords.lng);
 		result.then((r) => {
 			setPets(r);
+			if (r.length == 0) {
+				Swal.fire({
+					title: "¡No se encontraron mascotas!",
+					text: "Por el momento no hay mascotas reportadas en tu zona",
+					icon: "warning",
+					confirmButtonColor: "rgb(128, 38, 212)",
+				});
+			}
 		});
 	}
 	useEffect(() => {
-		if (coords) {
+		if (coords.lat !== 0 && coords.lng !== 0) {
 			getPets();
 		}
 	}, [coords]);
@@ -39,7 +49,7 @@ export function HomePage() {
 				</Text>
 				<MainButton onClick={handleLocation}>Mi ubicación</MainButton>
 			</div>
-			{pets ? (
+			{pets.length == 0 ? null : (
 				<div className={styles.cards_container}>
 					{pets.map((p) => (
 						<PetCard
@@ -54,8 +64,6 @@ export function HomePage() {
 						/>
 					))}
 				</div>
-			) : (
-				<Text>Por el momento no hay mascotas reportadas en tu zona</Text>
 			)}
 		</div>
 	);

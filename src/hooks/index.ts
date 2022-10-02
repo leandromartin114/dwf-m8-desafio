@@ -33,6 +33,11 @@ const petInfoState = atom({
 	default: { name: "", id: 0, email: "" },
 	effects_UNSTABLE: [persistAtom],
 });
+const coordsState = atom({
+	key: "coords",
+	default: { lng: 0, lat: 0 },
+	effects_UNSTABLE: [persistAtom],
+});
 
 //my hooks
 export function useEmailState(): [
@@ -77,4 +82,11 @@ export function usePetInfoState(): [
 ] {
 	const [petInfo, setPetInfo] = useRecoilState(petInfoState);
 	return [petInfo, setPetInfo];
+}
+export function useCoordsState(): [
+	any,
+	React.Dispatch<React.SetStateAction<any>>
+] {
+	const [coords, setCoords] = useRecoilState(coordsState);
+	return [coords, setCoords];
 }

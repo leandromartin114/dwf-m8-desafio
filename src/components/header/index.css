@@ -11,7 +11,7 @@
 }
 .desktop_ul {
     display: none;
-    width: 670px;
+    width: 100%;
     margin: 0;
     padding: 15px;
 }
