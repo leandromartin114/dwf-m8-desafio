@@ -81,7 +81,7 @@ export async function getPetsNearBy(lat: number, lng: number) {
 	);
 	const data = await res.json();
 	const pets = data.filter((p) => {
-		return p.state == "FINDED" || p.state == "LOST";
+		return p.state == "FINDED" || p.state == "FOUND" || p.state == "LOST";
 	});
 	return pets;
 }
