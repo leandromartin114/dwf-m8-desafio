@@ -34,10 +34,7 @@ export function PetCard(props: petProps) {
 		if (props.state == "LOST") {
 			setColor("red");
 		}
-		if (props.state == "FINDED") {
-			setColor("green");
-		}
-		if (props.state == "FOUND") {
+		if (props.state == "FINDED" || "FOUND") {
 			setColor("green");
 		}
 	}, [color]);
