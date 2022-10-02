@@ -31,13 +31,12 @@ export function PetCard(props: petProps) {
 	}
 
 	useEffect(() => {
-		if (props.state == "LOST") {
+		if (props.state === "LOST") {
 			setColor("red");
-		}
-		if (props.state == "FINDED" || "FOUND") {
+		} else if (props.state === "FINDED" || props.state === "FOUND") {
 			setColor("green");
 		}
-	}, [color]);
+	});
 
 	return (
 		<div className={styles.card}>
@@ -87,17 +86,16 @@ export function MyPetCard(props: myPetProps) {
 		setPet(myPetData);
 		navigate("/edit");
 	}
+
 	useEffect(() => {
-		if (props.state === "FINDED" || "FOUND") {
+		if (props.state === "FINDED" || props.state === "FOUND") {
 			setColor("green");
-		}
-		if (props.state === "UNPUBLISH") {
+		} else if (props.state === "UNPUBLISH") {
 			setColor("yellow");
-		}
-		if (props.state === "LOST") {
+		} else if (props.state === "LOST") {
 			setColor("red");
 		}
-	}, [color]);
+	});
 
 	return (
 		<div className={styles.card}>
