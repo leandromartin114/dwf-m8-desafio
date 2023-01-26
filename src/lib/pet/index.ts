@@ -1,4 +1,4 @@
-const API_BASE_URL = 'petfinder-back-production.up.railway.app'
+const API_BASE_URL = 'https://petfinder-back-production.up.railway.app'
 
 export type petDataParam = {
 	name: string
